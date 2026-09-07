@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ideal Week</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -325,6 +330,8 @@
     @page { size: landscape; margin: 12mm; }
   }
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header>
@@ -334,8 +341,8 @@
       <p id="introText">Loading…</p>
     </div>
     <div class="toolbar">
-      <button class="btn ghost" id="resetBtn" type="button">↺ Reset to starting week</button>
-      <button class="btn ghost" id="printBtn" type="button">⭳ Export as PDF</button>
+      <button class="btn ghost" id="resetBtn" type="button">Reset to starting week</button>
+      <button class="btn ghost" id="printBtn" type="button">Export as PDF</button>
       <button class="btn primary" id="addBtn" type="button">+ Add block</button>
     </div>
   </header>
@@ -799,3 +806,5 @@
   renderBlocks();
 })();
 </script>
+</body>
+</html>
