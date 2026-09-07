@@ -439,6 +439,49 @@
 
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
+  /* ---- passphrase gate ---- */
+  .gate-overlay {
+    position: fixed; inset: 0;
+    background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    z-index: 200;
+  }
+  .gate-overlay[hidden] { display: none; }
+  .gate-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    width: 100%; max-width: 340px;
+    padding: 28px 26px 24px;
+    box-shadow: 0 20px 50px var(--shadow);
+    text-align: center;
+  }
+  .gate-card .eyebrow { margin-bottom: 8px; }
+  .gate-card h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 0 0 6px;
+  }
+  .gate-card p { font-size: 13px; color: var(--ink-soft); margin: 0 0 18px; line-height: 1.5; }
+  .gate-card input[type="password"] {
+    width: 100%;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    padding: 11px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .gate-card input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .gate-card .btn { width: 100%; justify-content: center; }
+  .gate-err { font-size: 12px; color: var(--danger); margin: 8px 0 0; min-height: 14px; }
+
   @media (prefers-reduced-motion: reduce) {
     .btn, .block { transition: none; }
   }
@@ -446,7 +489,7 @@
   @media print {
     body { padding: 0; background: var(--paper); }
     .wrap { max-width: none; }
-    .toolbar, .nav-cluster .today-btn, .modal-overlay, footer .edit-hint { display: none !important; }
+    .toolbar, .nav-cluster .today-btn, .modal-overlay, .gate-overlay, footer .edit-hint { display: none !important; }
     .grid-scroll { border: none; overflow: visible; border-radius: 0; }
     .cell { cursor: default; }
     .block { cursor: default; }
@@ -458,7 +501,18 @@
 </head>
 <body>
 
-<div class="wrap">
+<div class="gate-overlay" id="gateOverlay">
+  <div class="gate-card">
+    <div class="eyebrow">Ideal Week</div>
+    <h2>Enter passphrase</h2>
+    <p>This calendar is just gated from casual visitors — anyone with your link and a browser console could still get in. Your actual schedule never leaves your own browser either way.</p>
+    <input type="password" id="gateInput" autocomplete="off" aria-label="Passphrase">
+    <button type="button" class="btn primary" id="gateSubmit">Unlock</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
+<div class="wrap" id="appWrap" hidden>
   <header>
     <div class="heading-block">
       <div class="eyebrow">Calendar · editable</div>
@@ -547,6 +601,32 @@
 <script>
 (function () {
   "use strict";
+
+  var GATE_KEY = "ideal-week-gate-unlocked";
+  var PASSPHRASE = "ascent";
+  var gateOverlay = document.getElementById("gateOverlay");
+  var appWrap = document.getElementById("appWrap");
+  var gateInput = document.getElementById("gateInput");
+  var gateErr = document.getElementById("gateErr");
+
+  function unlock() {
+    try { localStorage.setItem(GATE_KEY, "1"); } catch (e) {}
+    gateOverlay.hidden = true;
+    appWrap.hidden = false;
+  }
+
+  function tryUnlock() {
+    if (gateInput.value.trim().toLowerCase() === PASSPHRASE) { unlock(); }
+    else { gateErr.textContent = "That's not it — try again."; gateInput.value = ""; gateInput.focus(); }
+  }
+
+  document.getElementById("gateSubmit").addEventListener("click", tryUnlock);
+  gateInput.addEventListener("keydown", function (ev) { if (ev.key === "Enter") tryUnlock(); });
+
+  var alreadyUnlocked = false;
+  try { alreadyUnlocked = localStorage.getItem(GATE_KEY) === "1"; } catch (e) {}
+  if (alreadyUnlocked) { gateOverlay.hidden = true; appWrap.hidden = false; }
+  else { setTimeout(function () { gateInput.focus(); }, 0); }
 
   var WD_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   var WD_LONG = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
