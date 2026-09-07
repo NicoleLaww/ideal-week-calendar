@@ -19,6 +19,7 @@
     --accent-text: #FFFFFF;
     --danger: #A34438;
     --shadow: rgba(43, 38, 32, 0.14);
+    color-scheme: light dark;
 
     --ascent-bg: #ECE5F7;   --ascent-text: #4B3878;   --ascent-border: #B7A0DE;
     --muaythai-bg: #FBEADA; --muaythai-text: #7C3E14; --muaythai-border: #E4A662;
@@ -50,6 +51,7 @@
     --line: #3A3428; --line-strong: #4C4433;
     --accent: #B29CE0; --accent-text: #241B38;
     --shadow: rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
 
     --ascent-bg: #362A4C;   --ascent-text: #D8CAF0;   --ascent-border: #6E5799;
     --muaythai-bg: #43290F; --muaythai-text: #F0C79A; --muaythai-border: #9A5F26;
@@ -58,6 +60,7 @@
     --audition-bg: #3D2030; --audition-text: #F0BFD6; --audition-border: #8A4A6E;
     --dayjob-bg: #1B2C29;   --dayjob-text: #B7DAD2;   --dayjob-border: #427268;
   }
+  :root[data-theme="light"] { color-scheme: light; }
 
   * { box-sizing: border-box; }
   body {
@@ -118,12 +121,65 @@
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .btn.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
   .btn.ghost { background: transparent; }
+  .btn.danger { color: var(--danger); border-color: var(--danger); background: transparent; }
+  .btn.small { padding: 8px 13px; font-size: 13px; }
+
+  /* ---- view / navigation bar ---- */
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 16px;
+  }
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .seg button {
+    padding: 8px 15px;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--paper-raised);
+    color: var(--ink-soft);
+    border: none;
+    cursor: pointer;
+  }
+  .seg button + button { border-left: 1px solid var(--line-strong); }
+  .seg button.active { background: var(--accent); color: var(--accent-text); }
+  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .nav-cluster { display: flex; align-items: center; gap: 6px; }
+  .nav-btn {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-raised);
+    color: var(--ink);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+  }
+  .nav-btn:hover { box-shadow: 0 2px 8px var(--shadow); }
+  .nav-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .range-label {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 15.5px;
+    min-width: 200px;
+    text-align: center;
+  }
+  .today-btn { font-size: 12.5px; }
 
   .legend {
     display: flex;
     flex-wrap: wrap;
     gap: 8px 10px;
-    margin: 20px 0 16px;
+    margin: 0 0 16px;
   }
   .legend-item {
     display: flex;
@@ -142,6 +198,7 @@
   .legend-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
+  /* ---- week grid ---- */
   .grid-scroll {
     overflow-x: auto;
     border: 1px solid var(--line-strong);
@@ -163,11 +220,10 @@
     border-bottom: 1px solid var(--line-strong);
     border-left: 1px solid var(--line);
     background: var(--paper-band);
-    position: sticky;
-    top: 0;
   }
+  .day-head.is-today { color: var(--accent); }
   .day-head .dname { display: block; }
-  .day-head .dcount {
+  .day-head .ddate {
     display: block;
     font-family: "IBM Plex Mono", monospace;
     font-weight: 400;
@@ -176,6 +232,7 @@
     color: var(--ink-faint);
     margin-top: 3px;
   }
+  .day-head.is-today .ddate { color: var(--accent); }
   .corner { border-bottom: 1px solid var(--line-strong); background: var(--paper-band); }
 
   .time-label {
@@ -241,12 +298,82 @@
     transform: translateX(-50%);
   }
 
-  .block.ascent    { background: var(--ascent-bg);    color: var(--ascent-text);    border: 1.5px solid var(--ascent-border); }
-  .block.muaythai  { background: var(--muaythai-bg);  color: var(--muaythai-text);  border: 1.5px solid var(--muaythai-border); }
-  .block.meisner   { background: var(--meisner-bg);   color: var(--meisner-text);   border: 1.5px solid var(--meisner-border); }
-  .block.script    { background: var(--script-bg);    color: var(--script-text);    border: 1.5px dashed var(--script-border); }
-  .block.audition  { background: var(--audition-bg);  color: var(--audition-text);  border: 1.5px solid var(--audition-border); }
-  .block.dayjob    { background: var(--dayjob-bg);    color: var(--dayjob-text);    border: 1.5px solid var(--dayjob-border); }
+  .block.ascent, .mchip.ascent    { background: var(--ascent-bg);    color: var(--ascent-text); }
+  .block.muaythai, .mchip.muaythai  { background: var(--muaythai-bg);  color: var(--muaythai-text); }
+  .block.meisner, .mchip.meisner   { background: var(--meisner-bg);   color: var(--meisner-text); }
+  .block.script, .mchip.script    { background: var(--script-bg);    color: var(--script-text); }
+  .block.audition, .mchip.audition  { background: var(--audition-bg);  color: var(--audition-text); }
+  .block.dayjob, .mchip.dayjob    { background: var(--dayjob-bg);    color: var(--dayjob-text); }
+  .block.ascent    { border: 1.5px solid var(--ascent-border); }
+  .block.muaythai  { border: 1.5px solid var(--muaythai-border); }
+  .block.meisner   { border: 1.5px solid var(--meisner-border); }
+  .block.script    { border: 1.5px dashed var(--script-border); }
+  .block.audition  { border: 1.5px solid var(--audition-border); }
+  .block.dayjob    { border: 1.5px solid var(--dayjob-border); }
+
+  /* ---- month grid ---- */
+  .month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .month-weekday-head {
+    background: var(--paper-band);
+    padding: 9px 10px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  .month-day {
+    background: var(--paper);
+    min-height: 106px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .month-day.outside { background: var(--paper-band); }
+  .month-day.outside .mnum { color: var(--ink-faint); }
+  .month-day:hover { background: color-mix(in srgb, var(--accent) 8%, var(--paper)); }
+  .month-day:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .mnum {
+    align-self: flex-start;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+    background: none;
+    border: none;
+    border-radius: 5px;
+    padding: 1px 5px;
+    cursor: pointer;
+  }
+  .mnum:hover { background: var(--paper-band); text-decoration: underline; }
+  .mnum:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .month-day.today .mnum { background: var(--accent); color: var(--accent-text); }
+  .mchip {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+  }
+  .mchip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .month-more { font-size: 10px; color: var(--ink-faint); font-weight: 500; padding: 0 2px; }
 
   footer { margin-top: 20px; font-size: 12px; color: var(--ink-faint); line-height: 1.6; max-width: 72ch; }
   footer strong { color: var(--ink-soft); }
@@ -284,7 +411,7 @@
     color: var(--ink-faint);
     margin-bottom: 6px;
   }
-  .field input[type="text"], .field select {
+  .field input[type="text"], .field input[type="date"], .field select {
     width: 100%;
     font-family: "Inter", sans-serif;
     font-size: 14px;
@@ -309,8 +436,6 @@
   .err { font-size: 12px; color: var(--danger); margin: -4px 0 10px; min-height: 14px; }
   .modal-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; gap: 10px; }
   .modal-actions .right { display: flex; gap: 8px; margin-left: auto; }
-  .btn.danger { color: var(--danger); border-color: var(--danger); background: transparent; }
-  .btn.small { padding: 8px 13px; font-size: 13px; }
 
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
@@ -321,7 +446,7 @@
   @media print {
     body { padding: 0; background: var(--paper); }
     .wrap { max-width: none; }
-    .toolbar, .modal-overlay, footer .edit-hint { display: none !important; }
+    .toolbar, .nav-cluster .today-btn, .modal-overlay, footer .edit-hint { display: none !important; }
     .grid-scroll { border: none; overflow: visible; border-radius: 0; }
     .cell { cursor: default; }
     .block { cursor: default; }
@@ -336,26 +461,45 @@
 <div class="wrap">
   <header>
     <div class="heading-block">
-      <div class="eyebrow">Weekly framework · editable</div>
+      <div class="eyebrow">Calendar · editable</div>
       <h1>Ideal Week</h1>
       <p id="introText">Loading…</p>
     </div>
     <div class="toolbar">
-      <button class="btn ghost" id="resetBtn" type="button">Reset to starting week</button>
+      <button class="btn ghost" id="clearBtn" type="button">Clear this week</button>
       <button class="btn ghost" id="printBtn" type="button">Export as PDF</button>
       <button class="btn primary" id="addBtn" type="button">+ Add block</button>
     </div>
   </header>
 
+  <div class="nav-bar">
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" id="weekViewBtn" class="active" aria-pressed="true">Week</button>
+      <button type="button" id="monthViewBtn" aria-pressed="false">Month</button>
+    </div>
+    <div class="nav-cluster">
+      <button type="button" class="nav-btn" id="prevBtn" aria-label="Previous">‹</button>
+      <span class="range-label" id="rangeLabel"></span>
+      <button type="button" class="nav-btn" id="nextBtn" aria-label="Next">›</button>
+    </div>
+    <button type="button" class="btn ghost small today-btn" id="todayBtn">Today</button>
+  </div>
+
   <div class="legend" id="legend" role="group" aria-label="Filter by category"></div>
 
-  <div class="grid-scroll">
-    <div class="grid" id="grid"></div>
+  <div id="weekView">
+    <div class="grid-scroll">
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
+
+  <div id="monthView" hidden>
+    <div class="month-grid" id="monthGrid"></div>
   </div>
 
   <footer>
-    <span class="edit-hint"><strong>Click</strong> any open square to add a block, <strong>click</strong> a block to edit or delete it, <strong>drag</strong> to move it, or drag its bottom edge to resize. Click a legend chip to hide that category while you plan.</span>
-    Script work is flexible by design — dashed border means move it wherever your actual energy allows. Everything else is yours to fill: auditions, self-tapes, day-job hours, whatever the week actually needs. Changes save in this browser automatically; use Export as PDF to print or save a copy of the week you land on.
+    <span class="edit-hint"><strong>Week view:</strong> click an open square to add a block, click a block to edit or delete it, drag to move it, or drag its bottom edge to resize. <strong>Month view:</strong> click a day to quick-add, click its date number to open that week, click any chip to edit. Legend chips filter both views.</span>
+    Script work is flexible by design — dashed border means move it wherever your actual energy allows. Everything else is yours to fill: auditions, self-tapes, day-job hours, whatever each week actually needs. Every week can look different — changes save in this browser automatically; use Export as PDF for a copy of what you're viewing.
   </footer>
 </div>
 
@@ -371,12 +515,11 @@
       <div class="swatch-row" id="swatchRow" role="radiogroup" aria-labelledby="catLabel"></div>
       <div class="cat-label" id="catName"></div>
     </div>
+    <div class="field">
+      <label for="dateInput">Date</label>
+      <input type="date" id="dateInput">
+    </div>
     <div class="row2">
-      <div class="field">
-        <label for="dayInput">Day</label>
-        <select id="dayInput"></select>
-      </div>
-      <div class="field"></div>
       <div class="field">
         <label for="startInput">Start</label>
         <select id="startInput"></select>
@@ -405,7 +548,11 @@
 (function () {
   "use strict";
 
-  var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  var WD_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  var WD_LONG = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  var MO_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var MO_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
   var GRID_START = 6 * 60;   // 6:00 AM in minutes
   var GRID_END = 23 * 60;    // 11:00 PM
   var SLOT = 30;             // minutes per row
@@ -421,16 +568,29 @@
   };
   var CAT_ORDER = ["ascent", "muaythai", "meisner", "script", "audition", "dayjob"];
 
-  var STORAGE_KEY = "ideal-week-blocks-v1";
+  var STORAGE_KEY = "ideal-week-blocks-v2";
+
+  // ---------- date helpers ----------
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+  function toKey(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function parseKey(k) { var p = k.split("-").map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  function addDays(d, n) { var r = new Date(d); r.setDate(r.getDate() + n); return r; }
+  function addMonths(d, n) { var r = new Date(d); r.setMonth(r.getMonth() + n); return r; }
+  function startOfWeek(d) { var dow = (d.getDay() + 6) % 7; return new Date(d.getFullYear(), d.getMonth(), d.getDate() - dow); }
+  function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
+  function sameDate(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+  function todayDate() { var t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); }
 
   function defaultBlocks() {
+    var seedWeek = startOfWeek(todayDate());
+    function k(offset) { return toKey(addDays(seedWeek, offset)); }
     return [
-      { id: "b1", day: 0, start: 9 * 60,  end: 12 * 60, cat: "script",   title: "Script work", note: "memorize · flexible" },
-      { id: "b2", day: 0, start: 13 * 60, end: 15 * 60, cat: "ascent",   title: "Ascent call", note: "" },
-      { id: "b3", day: 1, start: 7 * 60,  end: 8 * 60,  cat: "muaythai", title: "Muay Thai", note: "" },
-      { id: "b4", day: 1, start: 13 * 60, end: 15 * 60, cat: "ascent",   title: "Ascent call", note: "" },
-      { id: "b5", day: 2, start: 19 * 60, end: 22 * 60, cat: "meisner",  title: "Meisner", note: "every other week" },
-      { id: "b6", day: 6, start: 9 * 60,  end: 12 * 60, cat: "script",   title: "Script work", note: "memorize · flexible" }
+      { id: "b1", date: k(0), start: 9 * 60,  end: 12 * 60, cat: "script",   title: "Script work", note: "memorize · flexible" },
+      { id: "b2", date: k(0), start: 13 * 60, end: 15 * 60, cat: "ascent",   title: "Ascent call", note: "" },
+      { id: "b3", date: k(1), start: 7 * 60,  end: 8 * 60,  cat: "muaythai", title: "Muay Thai", note: "" },
+      { id: "b4", date: k(1), start: 13 * 60, end: 15 * 60, cat: "ascent",   title: "Ascent call", note: "" },
+      { id: "b5", date: k(2), start: 19 * 60, end: 22 * 60, cat: "meisner",  title: "Meisner", note: "every other week" },
+      { id: "b6", date: k(6), start: 9 * 60,  end: 12 * 60, cat: "script",   title: "Script work", note: "memorize · flexible" }
     ];
   }
 
@@ -451,6 +611,9 @@
   var blocks = loadBlocks();
   var hiddenCats = {};
   var editingId = null;
+  var viewMode = "week"; // "week" | "month"
+  var weekStart = startOfWeek(todayDate());
+  var monthCursor = startOfMonth(todayDate());
 
   function fmtTime(min) {
     var h = Math.floor(min / 60), m = min % 60;
@@ -458,34 +621,35 @@
     var h12 = h % 12; if (h12 === 0) h12 = 12;
     return h12 + (m ? ":" + (m < 10 ? "0" : "") + m : "") + " " + ap;
   }
-
   function fmtRange(s, e) { return fmtTime(s) + " – " + fmtTime(e); }
-
   function rowStartFor(min) { return 2 + Math.round((min - GRID_START) / SLOT); }
   function rowSpanFor(s, e) { return Math.max(1, Math.round((e - s) / SLOT)); }
 
-  // ---------- build static grid chrome ----------
+  // ---------- week grid ----------
   var gridEl = document.getElementById("grid");
 
   function buildGrid() {
     gridEl.innerHTML = "";
     gridEl.style.gridTemplateRows = "auto repeat(" + ROWS + ", 24px)";
+    var today = todayDate();
 
     var corner = document.createElement("div");
     corner.className = "corner";
     corner.style.gridColumn = "1"; corner.style.gridRow = "1";
     gridEl.appendChild(corner);
 
-    DAYS.forEach(function (d, i) {
+    for (var i = 0; i < 7; i++) {
+      var date = addDays(weekStart, i);
+      var isToday = sameDate(date, today);
       var head = document.createElement("div");
-      head.className = "day-head";
+      head.className = "day-head" + (isToday ? " is-today" : "");
       head.style.gridColumn = (i + 2); head.style.gridRow = "1";
-      var count = blocks.filter(function (b) { return b.day === i; }).length;
-      head.innerHTML = '<span class="dname">' + d + '</span><span class="dcount" data-daycount="' + i + '">' + count + " block" + (count === 1 ? "" : "s") + "</span>";
+      var count = blocks.filter(function (b) { return b.date === toKey(date); }).length;
+      head.innerHTML = '<span class="dname">' + WD_SHORT[i] + '</span><span class="ddate" data-daycount="' + i + '">' +
+        MO_SHORT[date.getMonth()] + " " + date.getDate() + " · " + count + (count === 1 ? " block" : " blocks") + "</span>";
       gridEl.appendChild(head);
-    });
+    }
 
-    // hour labels (every other row)
     for (var h = GRID_START / 60; h < GRID_END / 60; h++) {
       var slotIdx = ((h * 60) - GRID_START) / SLOT;
       var label = document.createElement("div");
@@ -496,8 +660,9 @@
       gridEl.appendChild(label);
     }
 
-    // background cells
     for (var day = 0; day < 7; day++) {
+      var cellDate = addDays(weekStart, day);
+      var cellKey = toKey(cellDate);
       for (var s = 0; s < ROWS; s++) {
         var cell = document.createElement("div");
         var hourIdx = Math.floor(s / 2);
@@ -507,12 +672,10 @@
         cell.tabIndex = 0;
         cell.setAttribute("role", "button");
         var startMin = GRID_START + s * SLOT;
-        cell.setAttribute("aria-label", "Add block " + DAYS[day] + " " + fmtTime(startMin));
-        cell.addEventListener("click", function () {
-          var day2 = parseInt(this.style.gridColumn, 10) - 2;
-          var s2 = parseInt(this.style.gridRow, 10) - 2;
-          openModal(null, day2, GRID_START + s2 * SLOT);
-        });
+        cell.setAttribute("aria-label", "Add block " + WD_LONG[day] + " " + MO_SHORT[cellDate.getMonth()] + " " + cellDate.getDate() + " " + fmtTime(startMin));
+        (function (key, startMin2) {
+          cell.addEventListener("click", function () { openModal(null, key, startMin2); });
+        })(cellKey, startMin);
         cell.addEventListener("keydown", function (ev) {
           if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); this.click(); }
         });
@@ -521,20 +684,23 @@
     }
   }
 
-  // ---------- render blocks ----------
   function renderBlocks() {
-    var existing = gridEl.querySelectorAll(".block");
-    existing.forEach(function (el) { el.remove(); });
+    gridEl.querySelectorAll(".block").forEach(function (el) { el.remove(); });
+    var weekEnd = addDays(weekStart, 6);
 
     blocks.forEach(function (b) {
+      var d = parseKey(b.date);
+      if (d < weekStart || d > weekEnd) return;
+      var dayIdx = Math.round((d - weekStart) / 86400000);
+
       var el = document.createElement("div");
       el.className = "block " + b.cat;
-      el.style.gridColumn = (b.day + 2);
+      el.style.gridColumn = (dayIdx + 2);
       el.style.gridRow = rowStartFor(b.start) + " / span " + rowSpanFor(b.start, b.end);
       el.dataset.id = b.id;
       el.tabIndex = 0;
       el.setAttribute("role", "button");
-      el.setAttribute("aria-label", b.title + ", " + DAYS[b.day] + " " + fmtRange(b.start, b.end) + ". Press enter to edit.");
+      el.setAttribute("aria-label", b.title + ", " + WD_LONG[dayIdx] + " " + fmtRange(b.start, b.end) + ". Press enter to edit.");
       if (hiddenCats[b.cat]) el.style.display = "none";
 
       var titleEl = document.createElement("div");
@@ -567,21 +733,20 @@
     });
   }
 
-  // ---------- drag to move / resize ----------
   function attachDrag(el, block, handle) {
     var dragState = null;
 
     el.addEventListener("pointerdown", function (ev) {
       if (ev.target === handle) return;
       ev.preventDefault();
-      dragState = { mode: "move", moved: false, startX: ev.clientX, startY: ev.clientY, origDay: block.day, origStart: block.start, origEnd: block.end };
+      dragState = { mode: "move", moved: false, startX: ev.clientX, startY: ev.clientY, origDate: block.date, origStart: block.start, origEnd: block.end };
       el.setPointerCapture(ev.pointerId);
     });
 
     handle.addEventListener("pointerdown", function (ev) {
       ev.preventDefault();
       ev.stopPropagation();
-      dragState = { mode: "resize", moved: false, startX: ev.clientX, startY: ev.clientY, origDay: block.day, origStart: block.start, origEnd: block.end };
+      dragState = { mode: "resize", moved: false, startX: ev.clientX, startY: ev.clientY, origDate: block.date, origStart: block.start, origEnd: block.end };
       el.setPointerCapture(ev.pointerId);
     });
 
@@ -595,48 +760,176 @@
       el.classList.add("dragging");
       var colWidth = el.getBoundingClientRect().width;
       var rowHeight = 24;
+      var origDayIdx = Math.round((parseKey(dragState.origDate) - weekStart) / 86400000);
 
       if (dragState.mode === "move") {
         var dayDelta = Math.round(dx / Math.max(colWidth, 80));
         var slotDelta = Math.round(dy / rowHeight);
-        var newDay = Math.min(6, Math.max(0, dragState.origDay + dayDelta));
+        var newDayIdx = Math.min(6, Math.max(0, origDayIdx + dayDelta));
         var duration = dragState.origEnd - dragState.origStart;
         var newStart = dragState.origStart + slotDelta * SLOT;
         newStart = Math.min(GRID_END - duration, Math.max(GRID_START, newStart));
-        block.day = newDay; block.start = newStart; block.end = newStart + duration;
+        block.date = toKey(addDays(weekStart, newDayIdx));
+        block.start = newStart; block.end = newStart + duration;
       } else {
         var slotDeltaR = Math.round(dy / rowHeight);
         var newEnd = dragState.origEnd + slotDeltaR * SLOT;
         newEnd = Math.min(GRID_END, Math.max(dragState.origStart + SLOT, newEnd));
         block.end = newEnd;
       }
-      el.style.gridColumn = (block.day + 2);
+      var dayIdxNow = Math.round((parseKey(block.date) - weekStart) / 86400000);
+      el.style.gridColumn = (dayIdxNow + 2);
       el.style.gridRow = rowStartFor(block.start) + " / span " + rowSpanFor(block.start, block.end);
     });
 
-    el.addEventListener("pointerup", function (ev) {
+    el.addEventListener("pointerup", function () {
       el.classList.remove("dragging");
       if (!dragState) return;
       var wasMove = dragState.moved;
       dragState = null;
-      if (wasMove) {
-        saveBlocks();
-        renderDayCounts();
-      } else {
-        openModal(block.id);
-      }
+      if (wasMove) { saveBlocks(); buildGrid(); renderBlocks(); }
+      else { openModal(block.id); }
     });
 
     el.addEventListener("pointercancel", function () { dragState = null; el.classList.remove("dragging"); });
   }
 
-  function renderDayCounts() {
-    for (var i = 0; i < 7; i++) {
-      var count = blocks.filter(function (b) { return b.day === i; }).length;
-      var el = gridEl.querySelector('[data-daycount="' + i + '"]');
-      if (el) el.textContent = count + " block" + (count === 1 ? "" : "s");
+  // ---------- month grid ----------
+  var monthGridEl = document.getElementById("monthGrid");
+
+  function renderMonth() {
+    monthGridEl.innerHTML = "";
+    var today = todayDate();
+    var firstOfMonth = startOfMonth(monthCursor);
+    var gridStart = startOfWeek(firstOfMonth);
+
+    WD_SHORT.forEach(function (wd) {
+      var h = document.createElement("div");
+      h.className = "month-weekday-head";
+      h.textContent = wd;
+      monthGridEl.appendChild(h);
+    });
+
+    for (var i = 0; i < 42; i++) {
+      var date = addDays(gridStart, i);
+      var key = toKey(date);
+      var isOutside = date.getMonth() !== monthCursor.getMonth();
+      var isToday = sameDate(date, today);
+
+      var cell = document.createElement("div");
+      cell.className = "month-day" + (isOutside ? " outside" : "") + (isToday ? " today" : "");
+      cell.tabIndex = 0;
+      cell.setAttribute("role", "button");
+      var dayBlocks = blocks.filter(function (b) { return b.date === key && !hiddenCats[b.cat]; })
+        .sort(function (a, b) { return a.start - b.start; });
+      cell.setAttribute("aria-label", MO_LONG[date.getMonth()] + " " + date.getDate() + ", " + dayBlocks.length + " blocks. Press enter to add.");
+
+      var numBtn = document.createElement("button");
+      numBtn.type = "button";
+      numBtn.className = "mnum";
+      numBtn.textContent = date.getDate();
+      numBtn.title = "Open week of " + MO_SHORT[date.getMonth()] + " " + date.getDate();
+      numBtn.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        navigateToWeek(parseKey(this.dataset.key));
+      });
+      numBtn.dataset.key = key;
+      cell.appendChild(numBtn);
+
+      var shown = dayBlocks.slice(0, 3);
+      shown.forEach(function (b) {
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "mchip " + b.cat;
+        chip.textContent = b.title;
+        chip.title = b.title + " · " + fmtRange(b.start, b.end);
+        chip.addEventListener("click", function (ev) { ev.stopPropagation(); openModal(b.id); });
+        cell.appendChild(chip);
+      });
+      if (dayBlocks.length > 3) {
+        var more = document.createElement("div");
+        more.className = "month-more";
+        more.textContent = "+" + (dayBlocks.length - 3) + " more";
+        cell.appendChild(more);
+      }
+
+      cell.addEventListener("click", function () { openModal(null, this.dataset.key || key, null); });
+      cell.dataset.key = key;
+      cell.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); openModal(null, this.dataset.key, null); }
+      });
+
+      monthGridEl.appendChild(cell);
     }
   }
+
+  // ---------- view switching / navigation ----------
+  function renderActive() {
+    if (viewMode === "week") { buildGrid(); renderBlocks(); }
+    else { renderMonth(); }
+    updateNav();
+  }
+
+  function updateNav() {
+    document.getElementById("weekView").hidden = viewMode !== "week";
+    document.getElementById("monthView").hidden = viewMode !== "month";
+    document.getElementById("weekViewBtn").classList.toggle("active", viewMode === "week");
+    document.getElementById("weekViewBtn").setAttribute("aria-pressed", viewMode === "week");
+    document.getElementById("monthViewBtn").classList.toggle("active", viewMode === "month");
+    document.getElementById("monthViewBtn").setAttribute("aria-pressed", viewMode === "month");
+    document.getElementById("clearBtn").textContent = viewMode === "week" ? "Clear this week" : "Clear this month";
+
+    var label;
+    if (viewMode === "week") {
+      var end = addDays(weekStart, 6);
+      if (weekStart.getMonth() === end.getMonth()) {
+        label = MO_SHORT[weekStart.getMonth()] + " " + weekStart.getDate() + "–" + end.getDate() + ", " + end.getFullYear();
+      } else {
+        label = MO_SHORT[weekStart.getMonth()] + " " + weekStart.getDate() + " – " + MO_SHORT[end.getMonth()] + " " + end.getDate() + ", " + end.getFullYear();
+      }
+    } else {
+      label = MO_LONG[monthCursor.getMonth()] + " " + monthCursor.getFullYear();
+    }
+    document.getElementById("rangeLabel").textContent = label;
+
+    document.getElementById("introText").textContent = viewMode === "week"
+      ? "Two fixed anchors — Ascent, Monday and Tuesday 1–3pm — everything else is yours to place. Click an open square to add a block, drag anything to move it, resize from the bottom edge."
+      : "Browse the month, then click into any week to shape its hours. Every week can carry a different plan — nothing here repeats unless you add it again.";
+  }
+
+  function navigateToWeek(date) {
+    viewMode = "week";
+    weekStart = startOfWeek(date);
+    renderActive();
+  }
+
+  document.getElementById("weekViewBtn").addEventListener("click", function () {
+    if (viewMode === "week") return;
+    weekStart = startOfWeek(monthCursor.getMonth() === todayDate().getMonth() && monthCursor.getFullYear() === todayDate().getFullYear() ? todayDate() : monthCursor);
+    viewMode = "week";
+    renderActive();
+  });
+  document.getElementById("monthViewBtn").addEventListener("click", function () {
+    if (viewMode === "month") return;
+    monthCursor = startOfMonth(weekStart);
+    viewMode = "month";
+    renderActive();
+  });
+  document.getElementById("prevBtn").addEventListener("click", function () {
+    if (viewMode === "week") weekStart = addDays(weekStart, -7);
+    else monthCursor = addMonths(monthCursor, -1);
+    renderActive();
+  });
+  document.getElementById("nextBtn").addEventListener("click", function () {
+    if (viewMode === "week") weekStart = addDays(weekStart, 7);
+    else monthCursor = addMonths(monthCursor, 1);
+    renderActive();
+  });
+  document.getElementById("todayBtn").addEventListener("click", function () {
+    if (viewMode === "week") weekStart = startOfWeek(todayDate());
+    else monthCursor = startOfMonth(todayDate());
+    renderActive();
+  });
 
   // ---------- legend ----------
   var legendEl = document.getElementById("legend");
@@ -652,7 +945,7 @@
       item.addEventListener("click", function () {
         hiddenCats[key] = !hiddenCats[key];
         item.setAttribute("aria-pressed", hiddenCats[key] ? "false" : "true");
-        renderBlocks();
+        if (viewMode === "week") renderBlocks(); else renderMonth();
       });
       legendEl.appendChild(item);
     });
@@ -666,7 +959,7 @@
   // ---------- modal ----------
   var overlay = document.getElementById("modalOverlay");
   var titleInput = document.getElementById("titleInput");
-  var dayInput = document.getElementById("dayInput");
+  var dateInput = document.getElementById("dateInput");
   var startInput = document.getElementById("startInput");
   var endInput = document.getElementById("endInput");
   var noteInput = document.getElementById("noteInput");
@@ -676,12 +969,6 @@
   var modalTitleEl = document.getElementById("modalTitle");
   var deleteBtn = document.getElementById("deleteBtn");
   var selectedCat = "ascent";
-
-  DAYS.forEach(function (d, i) {
-    var opt = document.createElement("option");
-    opt.value = i; opt.textContent = d;
-    dayInput.appendChild(opt);
-  });
 
   function buildTimeOptions(select) {
     select.innerHTML = "";
@@ -704,10 +991,7 @@
     btn.dataset.cat = key;
     btn.setAttribute("aria-pressed", "false");
     btn.title = cat.label;
-    btn.addEventListener("click", function () {
-      selectedCat = key;
-      updateSwatchSelection();
-    });
+    btn.addEventListener("click", function () { selectedCat = this.dataset.cat; updateSwatchSelection(); });
     swatchRow.appendChild(btn);
   });
 
@@ -721,14 +1005,21 @@
     catName.textContent = CATS[selectedCat].label;
   }
 
-  function openModal(id, prefillDay, prefillStart) {
+  function contextDefaultDate() {
+    if (viewMode === "week") return toKey(weekStart);
+    var today = todayDate();
+    if (monthCursor.getMonth() === today.getMonth() && monthCursor.getFullYear() === today.getFullYear()) return toKey(today);
+    return toKey(monthCursor);
+  }
+
+  function openModal(id, prefillDateKey, prefillStart) {
     editingId = id;
     formErr.textContent = "";
     if (id) {
       var b = blocks.find(function (x) { return x.id === id; });
       modalTitleEl.textContent = "Edit block";
       titleInput.value = b.title;
-      dayInput.value = b.day;
+      dateInput.value = b.date;
       startInput.value = b.start;
       endInput.value = b.end;
       noteInput.value = b.note || "";
@@ -737,9 +1028,9 @@
     } else {
       modalTitleEl.textContent = "Add block";
       titleInput.value = "";
-      dayInput.value = prefillDay || 0;
-      startInput.value = prefillStart != null ? prefillStart : GRID_START;
-      var defEnd = (prefillStart != null ? prefillStart : GRID_START) + 60;
+      dateInput.value = prefillDateKey || contextDefaultDate();
+      startInput.value = prefillStart != null ? prefillStart : 9 * 60;
+      var defEnd = (prefillStart != null ? prefillStart : 9 * 60) + 60;
       endInput.value = Math.min(GRID_END, defEnd);
       noteInput.value = "";
       selectedCat = "ascent";
@@ -752,58 +1043,66 @@
 
   function closeModal() { overlay.hidden = true; editingId = null; }
 
-  document.getElementById("addBtn").addEventListener("click", function () { openModal(null, 0, GRID_START); });
+  function focusOnDate(key) {
+    var d = parseKey(key);
+    if (viewMode === "week") weekStart = startOfWeek(d);
+    else monthCursor = startOfMonth(d);
+    renderActive();
+  }
+
+  document.getElementById("addBtn").addEventListener("click", function () { openModal(null, contextDefaultDate(), 9 * 60); });
   document.getElementById("cancelBtn").addEventListener("click", closeModal);
   overlay.addEventListener("click", function (ev) { if (ev.target === overlay) closeModal(); });
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !overlay.hidden) closeModal(); });
 
   document.getElementById("saveBtn").addEventListener("click", function () {
     var title = titleInput.value.trim();
+    var dateKey = dateInput.value;
     var start = parseInt(startInput.value, 10);
     var end = parseInt(endInput.value, 10);
-    var day = parseInt(dayInput.value, 10);
     if (!title) { formErr.textContent = "Give the block a title."; titleInput.focus(); return; }
+    if (!dateKey) { formErr.textContent = "Pick a date."; dateInput.focus(); return; }
     if (end <= start) { formErr.textContent = "End time must be after start time."; return; }
 
     if (editingId) {
       var b = blocks.find(function (x) { return x.id === editingId; });
-      b.title = title; b.day = day; b.start = start; b.end = end; b.cat = selectedCat; b.note = noteInput.value.trim();
+      b.title = title; b.date = dateKey; b.start = start; b.end = end; b.cat = selectedCat; b.note = noteInput.value.trim();
     } else {
-      blocks.push({ id: "b" + Date.now(), day: day, start: start, end: end, cat: selectedCat, title: title, note: noteInput.value.trim() });
+      blocks.push({ id: "b" + Date.now(), date: dateKey, start: start, end: end, cat: selectedCat, title: title, note: noteInput.value.trim() });
     }
     saveBlocks();
-    renderBlocks();
-    renderDayCounts();
     closeModal();
+    focusOnDate(dateKey);
   });
 
   deleteBtn.addEventListener("click", function () {
     if (!editingId) return;
     blocks = blocks.filter(function (b) { return b.id !== editingId; });
     saveBlocks();
-    renderBlocks();
-    renderDayCounts();
     closeModal();
+    renderActive();
   });
 
   // ---------- toolbar ----------
   document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
-  document.getElementById("resetBtn").addEventListener("click", function () {
-    if (!confirm("Reset to the starting week? This clears your edits saved in this browser.")) return;
-    blocks = defaultBlocks();
-    hiddenCats = {};
+  document.getElementById("clearBtn").addEventListener("click", function () {
+    var label = viewMode === "week" ? "this week" : "this month";
+    if (!confirm("Clear all blocks in " + label + "? This can't be undone.")) return;
+    if (viewMode === "week") {
+      var end = addDays(weekStart, 6);
+      blocks = blocks.filter(function (b) { var d = parseKey(b.date); return d < weekStart || d > end; });
+    } else {
+      blocks = blocks.filter(function (b) {
+        var d = parseKey(b.date);
+        return !(d.getMonth() === monthCursor.getMonth() && d.getFullYear() === monthCursor.getFullYear());
+      });
+    }
     saveBlocks();
-    buildLegend();
-    renderBlocks();
-    renderDayCounts();
+    renderActive();
   });
 
-  document.getElementById("introText").textContent =
-    "Two fixed anchors — Ascent, Monday and Tuesday 1–3pm — everything else is yours to place. Click an open square to add a block, drag anything to move it, resize from the bottom edge, and export the week once it feels right.";
-
-  buildGrid();
   buildLegend();
-  renderBlocks();
+  renderActive();
 })();
 </script>
 </body>
