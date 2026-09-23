@@ -27,6 +27,16 @@
     --script-bg: #EBF2DF;   --script-text: #3C5323;   --script-border: #A6C17C;
     --audition-bg: #FBE3E9; --audition-text: #7A2145; --audition-border: #D98CAE;
     --dayjob-bg: #E3EEEC;   --dayjob-text: #1F4A44;   --dayjob-border: #7FB0A6;
+
+    /* custom-category palette */
+    --pal1-bg: #E4E7FA; --pal1-text: #34348C; --pal1-border: #9AA0DE; /* indigo */
+    --pal2-bg: #FCE3DE; --pal2-text: #8A2F14; --pal2-border: #E39A7C; /* coral */
+    --pal3-bg: #FBF0D2; --pal3-text: #6B4E05; --pal3-border: #D9B54A; /* gold */
+    --pal4-bg: #DFF3F2; --pal4-text: #0F5C57; --pal4-border: #7EC3BD; /* cyan */
+    --pal5-bg: #EAE7E1; --pal5-text: #3A362E; --pal5-border: #B7AF9E; /* graphite */
+    --pal6-bg: #F3E2EE; --pal6-text: #6A2159; --pal6-border: #C98CB8; /* plum */
+    --pal7-bg: #E0EEFC; --pal7-text: #14477C; --pal7-border: #7FB2E3; /* sky */
+    --pal8-bg: #F5E9D6; --pal8-text: #6B4A1E; --pal8-border: #D6AD6E; /* sand */
   }
 
   @media (prefers-color-scheme: dark) {
@@ -43,6 +53,15 @@
       --script-bg: #2A3419;   --script-text: #CBDDAE;   --script-border: #5D7838;
       --audition-bg: #3D2030; --audition-text: #F0BFD6; --audition-border: #8A4A6E;
       --dayjob-bg: #1B2C29;   --dayjob-text: #B7DAD2;   --dayjob-border: #427268;
+
+      --pal1-bg: #2A2C4C; --pal1-text: #C7CBF2; --pal1-border: #5B5FA0;
+      --pal2-bg: #452414; --pal2-text: #F5C3AE; --pal2-border: #A65B34;
+      --pal3-bg: #3E3010; --pal3-text: #EBD48F; --pal3-border: #8A6B1E;
+      --pal4-bg: #16302E; --pal4-text: #A9DCD6; --pal4-border: #3F827A;
+      --pal5-bg: #2E2B25; --pal5-text: #D8D2C4; --pal5-border: #6B6353;
+      --pal6-bg: #3A1F34; --pal6-text: #E7BFDA; --pal6-border: #7A4A6E;
+      --pal7-bg: #17293C; --pal7-text: #B7D6F5; --pal7-border: #3D6FA0;
+      --pal8-bg: #3A2C16; --pal8-text: #E8CFA0; --pal8-border: #8A6634;
     }
   }
   :root[data-theme="dark"] {
@@ -59,6 +78,15 @@
     --script-bg: #2A3419;   --script-text: #CBDDAE;   --script-border: #5D7838;
     --audition-bg: #3D2030; --audition-text: #F0BFD6; --audition-border: #8A4A6E;
     --dayjob-bg: #1B2C29;   --dayjob-text: #B7DAD2;   --dayjob-border: #427268;
+
+    --pal1-bg: #2A2C4C; --pal1-text: #C7CBF2; --pal1-border: #5B5FA0;
+    --pal2-bg: #452414; --pal2-text: #F5C3AE; --pal2-border: #A65B34;
+    --pal3-bg: #3E3010; --pal3-text: #EBD48F; --pal3-border: #8A6B1E;
+    --pal4-bg: #16302E; --pal4-text: #A9DCD6; --pal4-border: #3F827A;
+    --pal5-bg: #2E2B25; --pal5-text: #D8D2C4; --pal5-border: #6B6353;
+    --pal6-bg: #3A1F34; --pal6-text: #E7BFDA; --pal6-border: #7A4A6E;
+    --pal7-bg: #17293C; --pal7-text: #B7D6F5; --pal7-border: #3D6FA0;
+    --pal8-bg: #3A2C16; --pal8-text: #E8CFA0; --pal8-border: #8A6634;
   }
   :root[data-theme="light"] { color-scheme: light; }
 
@@ -298,18 +326,7 @@
     transform: translateX(-50%);
   }
 
-  .block.ascent, .mchip.ascent    { background: var(--ascent-bg);    color: var(--ascent-text); }
-  .block.muaythai, .mchip.muaythai  { background: var(--muaythai-bg);  color: var(--muaythai-text); }
-  .block.meisner, .mchip.meisner   { background: var(--meisner-bg);   color: var(--meisner-text); }
-  .block.script, .mchip.script    { background: var(--script-bg);    color: var(--script-text); }
-  .block.audition, .mchip.audition  { background: var(--audition-bg);  color: var(--audition-text); }
-  .block.dayjob, .mchip.dayjob    { background: var(--dayjob-bg);    color: var(--dayjob-text); }
-  .block.ascent    { border: 1.5px solid var(--ascent-border); }
-  .block.muaythai  { border: 1.5px solid var(--muaythai-border); }
-  .block.meisner   { border: 1.5px solid var(--meisner-border); }
-  .block.script    { border: 1.5px dashed var(--script-border); }
-  .block.audition  { border: 1.5px solid var(--audition-border); }
-  .block.dayjob    { border: 1.5px solid var(--dayjob-border); }
+  /* category color is applied inline per-block (built-in and custom categories share one code path) */
 
   /* ---- month grid ---- */
   .month-grid {
@@ -432,7 +449,42 @@
   }
   .swatch-btn[aria-pressed="true"] { border-color: var(--ink); }
   .swatch-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .swatch-btn.new-cat {
+    background: var(--paper-band);
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 600;
+  }
   .cat-label { font-size: 12px; margin-top: 6px; color: var(--ink-soft); font-weight: 500; }
+  .new-cat-panel {
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper-band);
+  }
+  .new-cat-panel[hidden] { display: none; }
+  .new-cat-panel input[type="text"] {
+    width: 100%;
+    font-family: "Inter", sans-serif;
+    font-size: 13.5px;
+    padding: 8px 9px;
+    border-radius: 6px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--ink);
+    margin-bottom: 9px;
+  }
+  .new-cat-palette { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+  .pal-btn {
+    width: 24px; height: 24px; border-radius: 6px;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  .pal-btn[aria-pressed="true"] { border-color: var(--ink); }
+  .pal-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .new-cat-actions { display: flex; gap: 8px; justify-content: flex-end; }
   .err { font-size: 12px; color: var(--danger); margin: -4px 0 10px; min-height: 14px; }
   .modal-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; gap: 10px; }
   .modal-actions .right { display: flex; gap: 8px; margin-left: auto; }
@@ -568,6 +620,14 @@
       <label id="catLabel">Category</label>
       <div class="swatch-row" id="swatchRow" role="radiogroup" aria-labelledby="catLabel"></div>
       <div class="cat-label" id="catName"></div>
+      <div class="new-cat-panel" id="newCatPanel" hidden>
+        <input type="text" id="newCatNameInput" maxlength="24" placeholder="Category name, e.g. Callbacks">
+        <div class="new-cat-palette" id="newCatPalette"></div>
+        <div class="new-cat-actions">
+          <button type="button" class="btn small" id="newCatCancel">Cancel</button>
+          <button type="button" class="btn primary small" id="newCatAdd">Add category</button>
+        </div>
+      </div>
     </div>
     <div class="field">
       <label for="dateInput">Date</label>
@@ -638,17 +698,46 @@
   var SLOT = 30;             // minutes per row
   var ROWS = (GRID_END - GRID_START) / SLOT;
 
-  var CATS = {
-    ascent:   { label: "Ascent call (fixed)",  bg: "--ascent-bg",   border: "--ascent-border" },
-    muaythai: { label: "Muay Thai",             bg: "--muaythai-bg", border: "--muaythai-border" },
-    meisner:  { label: "Meisner",               bg: "--meisner-bg",  border: "--meisner-border" },
-    script:   { label: "Script work",           bg: "--script-bg",   border: "--script-border" },
-    audition: { label: "Audition / self-tape",  bg: "--audition-bg", border: "--audition-border" },
-    dayjob:   { label: "Day job",               bg: "--dayjob-bg",   border: "--dayjob-border" }
+  var BUILTIN_CATS = {
+    ascent:   { label: "Ascent call (fixed)",  bg: "--ascent-bg",   text: "--ascent-text",   border: "--ascent-border", dashed: false },
+    muaythai: { label: "Muay Thai",             bg: "--muaythai-bg", text: "--muaythai-text", border: "--muaythai-border", dashed: false },
+    meisner:  { label: "Meisner",               bg: "--meisner-bg",  text: "--meisner-text",  border: "--meisner-border", dashed: false },
+    script:   { label: "Script work",           bg: "--script-bg",   text: "--script-text",   border: "--script-border", dashed: true },
+    audition: { label: "Audition / self-tape",  bg: "--audition-bg", text: "--audition-text", border: "--audition-border", dashed: false },
+    dayjob:   { label: "Day job",               bg: "--dayjob-bg",   text: "--dayjob-text",   border: "--dayjob-border", dashed: false }
   };
-  var CAT_ORDER = ["ascent", "muaythai", "meisner", "script", "audition", "dayjob"];
+  var BUILTIN_ORDER = ["ascent", "muaythai", "meisner", "script", "audition", "dayjob"];
+
+  // palette offered when creating a new category
+  var PALETTE = [
+    { bg: "--pal1-bg", text: "--pal1-text", border: "--pal1-border" },
+    { bg: "--pal2-bg", text: "--pal2-text", border: "--pal2-border" },
+    { bg: "--pal3-bg", text: "--pal3-text", border: "--pal3-border" },
+    { bg: "--pal4-bg", text: "--pal4-text", border: "--pal4-border" },
+    { bg: "--pal5-bg", text: "--pal5-text", border: "--pal5-border" },
+    { bg: "--pal6-bg", text: "--pal6-text", border: "--pal6-border" },
+    { bg: "--pal7-bg", text: "--pal7-text", border: "--pal7-border" },
+    { bg: "--pal8-bg", text: "--pal8-text", border: "--pal8-border" }
+  ];
 
   var STORAGE_KEY = "ideal-week-blocks-v2";
+  var CUSTOM_CATS_KEY = "ideal-week-custom-cats-v1";
+
+  function loadCustomCats() {
+    try {
+      var raw = localStorage.getItem(CUSTOM_CATS_KEY);
+      var parsed = raw ? JSON.parse(raw) : {};
+      return (parsed && typeof parsed === "object") ? parsed : {};
+    } catch (e) { return {}; }
+  }
+  function saveCustomCats() {
+    try { localStorage.setItem(CUSTOM_CATS_KEY, JSON.stringify(customCats)); } catch (e) {}
+  }
+
+  var customCats = loadCustomCats();
+
+  function getCat(key) { return BUILTIN_CATS[key] || customCats[key] || { label: key, bg: "--line-strong", text: "--ink-soft", border: "--line-strong", dashed: false }; }
+  function allCatKeys() { return BUILTIN_ORDER.concat(Object.keys(customCats)); }
 
   // ---------- date helpers ----------
   function pad2(n) { return n < 10 ? "0" + n : "" + n; }
@@ -773,8 +862,12 @@
       if (d < weekStart || d > weekEnd) return;
       var dayIdx = Math.round((d - weekStart) / 86400000);
 
+      var catDef = getCat(b.cat);
       var el = document.createElement("div");
-      el.className = "block " + b.cat;
+      el.className = "block";
+      el.style.background = "var(" + catDef.bg + ")";
+      el.style.color = "var(" + catDef.text + ")";
+      el.style.border = "1.5px " + (catDef.dashed ? "dashed" : "solid") + " var(" + catDef.border + ")";
       el.style.gridColumn = (dayIdx + 2);
       el.style.gridRow = rowStartFor(b.start) + " / span " + rowSpanFor(b.start, b.end);
       el.dataset.id = b.id;
@@ -918,9 +1011,12 @@
 
       var shown = dayBlocks.slice(0, 3);
       shown.forEach(function (b) {
+        var chipCat = getCat(b.cat);
         var chip = document.createElement("button");
         chip.type = "button";
-        chip.className = "mchip " + b.cat;
+        chip.className = "mchip";
+        chip.style.background = "var(" + chipCat.bg + ")";
+        chip.style.color = "var(" + chipCat.text + ")";
         chip.textContent = b.title;
         chip.title = b.title + " · " + fmtRange(b.start, b.end);
         chip.addEventListener("click", function (ev) { ev.stopPropagation(); openModal(b.id); });
@@ -1015,8 +1111,8 @@
   var legendEl = document.getElementById("legend");
   function buildLegend() {
     legendEl.innerHTML = "";
-    CAT_ORDER.forEach(function (key) {
-      var cat = CATS[key];
+    allCatKeys().forEach(function (key) {
+      var cat = getCat(key);
       var item = document.createElement("button");
       item.type = "button";
       item.className = "legend-item";
@@ -1061,19 +1157,30 @@
   buildTimeOptions(startInput);
   buildTimeOptions(endInput);
 
-  CAT_ORDER.forEach(function (key) {
-    var cat = CATS[key];
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "swatch-btn";
-    btn.style.background = "var(" + cat.bg + ")";
-    btn.style.borderColor = "transparent";
-    btn.dataset.cat = key;
-    btn.setAttribute("aria-pressed", "false");
-    btn.title = cat.label;
-    btn.addEventListener("click", function () { selectedCat = this.dataset.cat; updateSwatchSelection(); });
-    swatchRow.appendChild(btn);
-  });
+  function buildSwatchRow() {
+    swatchRow.innerHTML = "";
+    allCatKeys().forEach(function (key) {
+      var cat = getCat(key);
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "swatch-btn";
+      btn.style.background = "var(" + cat.bg + ")";
+      btn.style.borderColor = "transparent";
+      btn.dataset.cat = key;
+      btn.setAttribute("aria-pressed", "false");
+      btn.title = cat.label;
+      btn.addEventListener("click", function () { selectedCat = this.dataset.cat; hideNewCatPanel(); updateSwatchSelection(); });
+      swatchRow.appendChild(btn);
+    });
+    var newBtn = document.createElement("button");
+    newBtn.type = "button";
+    newBtn.className = "swatch-btn new-cat";
+    newBtn.textContent = "+";
+    newBtn.title = "Create a new category";
+    newBtn.addEventListener("click", showNewCatPanel);
+    swatchRow.appendChild(newBtn);
+  }
+  buildSwatchRow();
 
   function updateSwatchSelection() {
     var btns = swatchRow.querySelectorAll(".swatch-btn");
@@ -1082,8 +1189,53 @@
       b.setAttribute("aria-pressed", on ? "true" : "false");
       b.style.borderColor = on ? "var(--ink)" : "transparent";
     });
-    catName.textContent = CATS[selectedCat].label;
+    catName.textContent = getCat(selectedCat).label;
   }
+
+  // ---------- create-a-category panel ----------
+  var newCatPanel = document.getElementById("newCatPanel");
+  var newCatNameInput = document.getElementById("newCatNameInput");
+  var newCatPaletteEl = document.getElementById("newCatPalette");
+  var chosenPaletteIdx = 0;
+
+  PALETTE.forEach(function (p, i) {
+    var pbtn = document.createElement("button");
+    pbtn.type = "button";
+    pbtn.className = "pal-btn";
+    pbtn.style.background = "var(" + p.bg + ")";
+    pbtn.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    pbtn.dataset.idx = i;
+    pbtn.addEventListener("click", function () {
+      chosenPaletteIdx = i;
+      newCatPaletteEl.querySelectorAll(".pal-btn").forEach(function (b, bi) { b.setAttribute("aria-pressed", bi === i ? "true" : "false"); });
+    });
+    newCatPaletteEl.appendChild(pbtn);
+  });
+
+  function showNewCatPanel() {
+    newCatPanel.hidden = false;
+    newCatNameInput.value = "";
+    formErr.textContent = "";
+    setTimeout(function () { newCatNameInput.focus(); }, 0);
+  }
+  function hideNewCatPanel() { newCatPanel.hidden = true; }
+
+  document.getElementById("newCatCancel").addEventListener("click", hideNewCatPanel);
+  document.getElementById("newCatAdd").addEventListener("click", function () {
+    var name = newCatNameInput.value.trim();
+    if (!name) { formErr.textContent = "Give the category a name."; newCatNameInput.focus(); return; }
+    var key = "custom" + Date.now();
+    var chosen = PALETTE[chosenPaletteIdx];
+    customCats[key] = { label: name, bg: chosen.bg, text: chosen.text, border: chosen.border, dashed: false };
+    saveCustomCats();
+    formErr.textContent = "";
+    hideNewCatPanel();
+    buildSwatchRow();
+    buildLegend();
+    selectedCat = key;
+    updateSwatchSelection();
+  });
+  newCatNameInput.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); document.getElementById("newCatAdd").click(); } });
 
   function contextDefaultDate() {
     if (viewMode === "week") return toKey(weekStart);
@@ -1095,6 +1247,7 @@
   function openModal(id, prefillDateKey, prefillStart) {
     editingId = id;
     formErr.textContent = "";
+    hideNewCatPanel();
     if (id) {
       var b = blocks.find(function (x) { return x.id === id; });
       modalTitleEl.textContent = "Edit block";
@@ -1121,7 +1274,7 @@
     setTimeout(function () { titleInput.focus(); }, 0);
   }
 
-  function closeModal() { overlay.hidden = true; editingId = null; }
+  function closeModal() { overlay.hidden = true; editingId = null; hideNewCatPanel(); }
 
   function focusOnDate(key) {
     var d = parseKey(key);
